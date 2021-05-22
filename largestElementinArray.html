@@ -1,0 +1,79 @@
+<script src="react.development.js"></script>
+<script src="babel.js"></script>
+<script src="react-dom.development.js"></script>
+
+
+<div id="root"></div>
+<script type="text/babel">
+  class Largest extends React.Component{
+
+constructor(){
+    super();
+    this.state={
+        answers:[],
+        show:false,
+        calc:0
+       
+       }
+}
+
+
+ 
+large(){
+    let no=Number(this.refs.element.value);
+   if(no!==''){
+   const val=no;
+    var array=[...this.state.answers];
+   array.push(val);
+    this.setState({
+        show:true,
+      answers:array,
+      calc:0
+    })
+     
+   }
+}
+fnCalc(){
+  let {answers}=this.state;
+    let n=answers.length;
+    let i,max;
+    max=answers[0];
+    
+    for(i=0;i<n;i++){
+       if(answers[i]>max)
+       {
+           max=answers[i];
+       }
+      
+    }
+    this.setState({
+    calc:max
+})
+    
+  }
+render(){
+
+    const list = [];
+    const {answers}=this.state;
+   for(let i=0;i<answers.length;i++){
+    list.push(answers[i]);
+    
+}
+     return <div>
+    Enter The Elements in Array: <input ref="element"/>
+  <button onClick={this.large.bind(this)}>Add</button>
+     
+        {this.state.show&&
+          list.map((value,index)=>{
+          return  <div id={index}>{value}</div>
+             })
+       }
+      
+      <br/>
+      <button onClick={this.fnCalc.bind(this)}>LARGEST</button>
+      <p>{this.state.calc}</p>
+         </div>
+}
+ }
+ReactDOM.render(<Largest/>,document.getElementById("root"));
+</script>

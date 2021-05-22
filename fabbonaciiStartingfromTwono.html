@@ -1,0 +1,63 @@
+<script src="react.development.js"></script>
+<script src="babel.js"></script>
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+<script type="text/babel">
+class Fabb extends React.Component{
+    constructor(){
+        super();
+        this.state={
+            answer:[]
+        }
+    }
+    Calc(){
+        let t=Number(this.refs.term.value);
+        let s=Number(this.refs.second.value);
+        let f=Number(this.refs.first.value);
+        let arr=[];
+        let sum;
+        arr.push(f);
+        arr.push(s);
+        let i;
+        console.log(arr);
+        for(i=0;i<=t;i++){
+            sum=s+f;
+            arr.push(sum);
+            f = s;
+            s = sum;
+        }
+        this.setState({
+            answer:arr
+        })
+            
+            
+        
+       
+    }
+    render(){
+        return <div>
+       <p>  enter the term:   <input ref="term"/></p>
+     <p>   enter the first number:    <input ref="first"/></p>
+    <p>   enter the second number:    <input ref="second"/></p>
+   
+    <button onClick={this.Calc.bind(this)}>FABB</button>
+   
+<p>{this.state.answer}</p>
+     
+</div>
+    }
+}
+ReactDOM.render(<Fabb/>,document.getElementById("root"));
+</script>           
+
+            
+       
+
+
+
+
+
+
+
+

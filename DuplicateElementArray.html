@@ -1,0 +1,90 @@
+<script src="react.development.js"></script>
+<script src="babel.js"></script>
+<script src="react-dom.development.js"></script>
+
+
+<div id="root"></div>
+<script type="text/babel">
+  class Delete extends React.Component{
+
+constructor(){
+    super();
+    this.state={
+        answers:[],
+        show:false
+       
+       }
+}
+
+
+ 
+Remove(){
+    let no=Number(this.refs.element.value);
+   if(no!==''){
+   const val=no;
+    var array=[...this.state.answers];
+   array.push(val);
+    this.setState({
+        show:true,
+      answers:array,
+      finalarr:''
+    })
+     
+   }
+}
+fnCalc(){
+  let {answers}=this.state;
+    let n=answers.length;
+    let count=0;
+    let temp=[];
+    let items=[];
+    let i,j;
+    for (i = 0; i < n; i++)
+  {
+    for ( j = 0; j < count; j++)
+    {
+      if (answers[i] == temp[j])
+        break;
+    }
+    if (j == count)
+    {
+      temp[count] = answers[i];
+      count++;
+    }
+  }
+  for (let i = 0; i < count; i++)
+  {
+   items.push(temp[i]);
+  }
+this.setState({
+    finalarr:items
+})
+
+}
+render(){
+
+    const list = [];
+    const {answers}=this.state;
+   for(let i=0;i<answers.length;i++){
+    list.push(answers[i]);
+    
+}
+     return <div>
+    Enter The Elements in Array: <input ref="element"/>
+  <button onClick={this.Remove.bind(this)}>Add</button>
+     
+        {this.state.show&&
+          list.map((value,index)=>{
+          return  <div id={index}>{value}</div>
+             })
+       }
+      
+    
+      <br/>
+      <button onClick={this.fnCalc.bind(this)}>Remove Duplicate</button>
+      <p>{this.state.finalarr}</p>
+         </div>
+}
+ }
+ReactDOM.render(<Delete/>,document.getElementById("root"));
+</script>

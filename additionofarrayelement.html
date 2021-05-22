@@ -1,0 +1,80 @@
+<script src="react.development.js"></script>
+<script src="babel.js"></script>
+<script src="react-dom.development.js"></script>
+
+
+<div id="root"></div>
+<script type="text/babel">
+  class Addition extends React.Component{
+
+constructor(){
+    super();
+    this.state={
+        answers:[],
+        show:false,
+        calc:0
+       
+       }
+}
+
+
+ 
+Add(){
+    let no=Number(this.refs.element.value);
+   if(no!==''){
+   const val=no;
+    var array=[...this.state.answers];
+   array.push(val);
+    this.setState({
+        show:true,
+      answers:array,
+      calc:0
+    })
+     
+   }
+}
+fnCalc(){
+  let {answers}=this.state;
+    let n=answers.length;
+    let count=0;
+    
+  
+    let i;
+    for(i=0;i<n;i++){
+        console.log(answers[i]);
+        console.log(count);
+    count=count+answers[i];
+    }
+    
+  
+this.setState({
+    calc:count
+})
+
+}
+render(){
+
+    const list = [];
+    const {answers}=this.state;
+   for(let i=0;i<answers.length;i++){
+    list.push(answers[i]);
+    
+}
+     return <div>
+    Enter The Elements in Array: <input ref="element"/>
+  <button onClick={this.Add.bind(this)}>Add</button>
+     
+        {this.state.show&&
+          list.map((value,index)=>{
+          return  <div id={index}>{value}</div>
+             })
+       }
+      
+      <br/>
+      <button onClick={this.fnCalc.bind(this)}>SUM</button>
+      <p>{this.state.calc}</p>
+         </div>
+}
+ }
+ReactDOM.render(<Addition/>,document.getElementById("root"));
+</script>

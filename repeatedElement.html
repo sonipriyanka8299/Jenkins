@@ -1,0 +1,92 @@
+<script src="react.development.js"></script>
+<script src="babel.js"></script>
+<script src="react-dom.development.js"></script>
+
+
+<div id="root"></div>
+<script type="text/babel">
+class Element extends React.Component{
+    constructor(){
+        super();
+        this.fnAdd=this.fnAdd.bind(this);
+        this.state={
+           arr:[],
+         
+           isShow:false
+}
+    }
+fnAdd(){
+    let no=Number(this.refs.no.value);
+    let show=[...this.state.arr];
+    if(no!=''){
+       
+        show.push(no);
+    }
+
+    this.setState({
+        arr:show
+    })
+}
+fnCalc(){
+    const {arr}=this.state;
+    let len=arr.length;
+    let items=[],i,c=0,k;
+    for(i=0;i<n;i++){
+        items.push(arr[i]);
+    }
+    for(i=0;i<n;i++){
+        c=0;
+      for(j=i+1;j<n;j++){
+            if(items[i]==i[j]){
+                c++;
+                for(k=j;k<n;k++){
+                arr[k]=arr[k+1];
+                    }
+                n--;
+                 j--;
+
+            }
+        }
+        if(c>0){
+            this.setState({
+              arr,
+               
+            })
+        }
+
+    }
+
+}
+  
+   render(){
+       const {arr,isShow,arr1}=this.state;
+       return <div>
+        
+        <p>Enter the no:<input ref="no"/></p>
+        <button onClick={this.fnAdd}>Add</button>
+        <p>
+            {
+                arr.map((val,index)=>{
+                return <div id={index}>{val}</div>
+                })
+            }
+            </p>
+            <button onClick={this.fnCalc}>Calculate</button>
+          {isShow&& arr1.map((val,index)=>{
+              return <div id={index}>=={val}</div>
+          })
+        }
+      
+        </div>
+   }
+}
+
+ReactDOM.render(<Element/>,document.getElementById("root"));
+</script>
+
+
+
+
+
+
+

@@ -1,0 +1,111 @@
+<script src="react.development.js"></script>
+<script src="babel.js"></script>
+<script src="react-dom.development.js"></script>
+
+
+<div id="root"></div>
+<script type="text/babel">
+  class Merge extends React.Component{
+
+constructor(){
+    super();
+    this.state={
+        answers1:[],
+        answers2:[],
+        final:[],
+       show:false,
+        calc:0
+       
+       }
+}
+merge1(){
+    let no=Number(this.refs.element1.value);
+    console.log(no);
+   if(no!==''){
+   const val=no;
+    var array=[...this.state.answers1];
+   array.push(val);
+    this.setState({
+        show:true,
+      answers1:array,
+      calc:0
+    })
+     
+   }
+}
+
+ 
+merge2(){
+    let no=Number(this.refs.element2.value);
+   if(no!==''){
+   const val=no;
+    var array=[...this.state.answers2];
+   array.push(val);
+    this.setState({
+        show:true,
+      answers2:array
+      
+    })
+     
+   }
+}
+fnCalc(){
+  let {answers1,answers2}=this.state;
+  console.log(answers1);
+  console.log(answers2);
+  let merge=[];
+  for(let i=0;i<answers1.length;i++){
+      merge.push(answers1[i]);
+  }
+  for(let j=0;j<answers2.length;j++){
+      merge.push(answers2[j]);
+  }
+this.setState({
+final:merge
+})
+
+ 
+  }
+render(){
+    const {answers1,answers2,final}=this.state;
+    const list1 = [];
+    const list2 = [];
+    
+    
+   for(let i=0;i<answers1.length;i++){
+    list1.push(answers1[i]);
+    
+}
+for(let j=0;j<answers2.length;j++){
+    list2.push(answers2[j]);
+    
+}
+
+  
+     return <div>
+    Enter The Elements  in  1st Array: <input ref="element1"/>
+  <button onClick={this.merge1.bind(this)}>Add</button>
+ 
+        {this.state.show&&
+          list1.map((value,index)=>{
+          return  <div id={index}>{value}</div>
+             })
+       }
+      
+      <br/>
+      Enter The Elements  in  2nt Array: <input ref="element2"/>
+  <button onClick={this.merge2.bind(this)}>Add</button>
+ 
+        {this.state.show&&
+          list2.map((value,index)=>{
+          return  <div id={index}>{value}</div>
+             })
+       }
+    
+      <button onClick={this.fnCalc.bind(this)}>MERGE</button>
+      <p>{this.state.final}</p>
+         </div>
+}
+ }
+ReactDOM.render(<Merge/>,document.getElementById("root"));
+</script>

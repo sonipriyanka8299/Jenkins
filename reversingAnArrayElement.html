@@ -1,0 +1,76 @@
+<script src="react.development.js"></script>
+<script src="babel.js"></script>
+<script src="react-dom.development.js"></script>
+
+
+<div id="root"></div>
+<script type="text/babel">
+  class Reverse extends React.Component{
+
+constructor(){
+    super();
+    this.state={
+        answers:[],
+        show:false,
+        calc:0
+       
+       }
+}
+
+
+ 
+reverse(){
+    let no=Number(this.refs.element.value);
+   if(no!==''){
+   const val=no;
+    var array=[...this.state.answers];
+   array.push(val);
+    this.setState({
+        show:true,
+      answers:array,
+      calc:[]
+    })
+     
+   }
+}
+fnCalc(){
+  let {answers}=this.state;
+  let n=answers.length;
+  let items=[];
+  let i;
+  for(i=n-1;i>=0;i--){
+
+      items.push(answers[i]);
+  }
+  console.log(items)
+
+    this.setState({
+    calc:items
+})
+    
+  }
+render(){
+
+    const list = [];
+    const {answers}=this.state;
+   for(let i=0;i<answers.length;i++){
+    list.push(answers[i]);
+    
+}
+     return <div>
+    Enter The Elements in Array: <input ref="element"/>
+  <button onClick={this.reverse.bind(this)}>Add</button>
+     
+        {this.state.show&&
+          list.map((value,index)=>{
+          return  <div id={index}>{value}</div>
+             })
+ }
+       <br/>
+      <button onClick={this.fnCalc.bind(this)}>REVERSE</button>
+      <p>{this.state.calc}</p>
+         </div>
+}
+ }
+ReactDOM.render(<Reverse/>,document.getElementById("root"));
+</script>

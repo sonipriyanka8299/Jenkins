@@ -1,0 +1,91 @@
+<script src="react.development.js"></script>
+<script src="babel.js"></script>
+<script src="react-dom.development.js"></script>
+
+
+<div id="root"></div>
+
+<script type="text/babel">
+class Remove extends React.Component{
+    constructor(){
+        super();
+        this.fnOutput=this.fnOutput.bind(this);
+        this.fnAdd=this.fnAdd.bind(this);
+        this.state={
+             arr:[],
+             arr1:[]
+        }
+    }
+    fnAdd(){
+       
+        let no=Number(this.refs.val.value);
+       
+        if(no!=''){
+        let items=[...this.state.arr];
+        let value=no;
+     
+      
+           items.push(value);
+       
+       this.setState({
+           arr:items
+       })
+    }
+    }
+    fnOutput(){
+        console.log("hello");
+        let {arr}=this.state;
+        let n=arr.length;
+        let show=[],c=0,val=[],i,j;
+        for(i=0;i<n;i++){
+            val.push(arr[i]);
+        }
+
+        for(let i=0;i<n;i++){
+            c=0;
+    for(j=0;j<n;j++){
+        if(i!=j){
+       if(val[i]==val[j]){
+           c++;
+       }
+     }
+    }
+    if(c==0){
+        show.push(val[i]);
+    }
+  }
+  this.setState({
+      arr1:show
+  })
+    }
+    render(){
+        const {arr,arr1}=this.state;
+        return <div>
+           
+            <p>Enter the value in array:<input ref="val"/>
+            <button onClick={this.fnAdd}>ADD</button></p>
+            <button onClick={this.fnOutput}>OUTPUT</button>
+            <p>
+            {
+                arr.map((val,index)=>{
+                    return <div>{val}</div>
+                })
+            }
+          </p>
+          <p>
+            {
+                arr1.map((val,index)=>{
+                    return <div>{val}</div>
+                })
+            }
+          </p>
+        </div>
+    }
+}
+
+ReactDOM.render(<Remove />,document.getElementById("root"));
+</script>     
+            
+            
+            
+         
